@@ -45,8 +45,8 @@ class CardViewAdapter(context: Context): RecyclerView.Adapter<CardAdapterViewHol
         val cursor = db.query(TableInfo.TABLE_NAME,
             null, BaseColumns._ID + "=?", arrayOf(holder.adapterPosition.plus(1).toString()),
             null, null, null)
-        cursor.moveToFirst()
 
+        if(cursor.moveToFirst())
         if(!(cursor.getString(1).isNullOrEmpty() &&
              cursor.getString(2).isNullOrEmpty())) {
                     title.setText(cursor.getString(1))
@@ -54,7 +54,7 @@ class CardViewAdapter(context: Context): RecyclerView.Adapter<CardAdapterViewHol
             }
            // else notifyItemRemoved(holder.adapterPosition)
 
-        val row_id = cursor.getString(0)
+        var row_id = cursor.getString(0)
 
         cursor.close()
 
