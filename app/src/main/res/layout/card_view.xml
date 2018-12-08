@@ -39,7 +39,7 @@
                     android:ellipsize="end"
                     android:layout_marginBottom="5dp"
 
-                    android:textAlignment="viewStart"/>
+                    android:textAlignment="viewStart" android:lines="2"/>
 
         </LinearLayout>
     </android.support.v7.widget.CardView>

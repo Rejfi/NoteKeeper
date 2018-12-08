@@ -15,6 +15,7 @@ import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
+import android.provider.BaseColumns
 import android.support.v7.widget.CardView
 import android.support.v7.widget.GridLayoutManager
 import android.util.Log
@@ -30,15 +31,17 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
     }
 
     override fun onResume() {
         super.onResume()
 
         //Wyświetlanie elementów na ekranie głównym - Adapter oraz LayoutManager
-        recyler_view.layoutManager = GridLayoutManager(applicationContext,1)
+        recyler_view.layoutManager = GridLayoutManager(applicationContext,2)
         recyler_view.adapter = CardViewAdapter(applicationContext)
         //----------------------------------------------------------------------
+
     }
 
     //Odpalanie aktywności edycji notatek
@@ -46,6 +49,7 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(v.context, DetailsActivity::class.java)
         v.context.startActivity(intent)
     }
+    //------------------------------------------------------------
 }
 
 

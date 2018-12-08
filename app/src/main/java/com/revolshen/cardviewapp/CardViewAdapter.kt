@@ -1,5 +1,9 @@
 package com.revolshen.cardviewapp
 
+import android.app.ActionBar
+import android.app.Service
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.provider.BaseColumns
@@ -24,13 +28,13 @@ class CardViewAdapter(context: Context): RecyclerView.Adapter<CardAdapterViewHol
     }
 
     override fun getItemCount(): Int {
-        val cursorLiczbaWierszy = db.query(TableInfo.TABLE_NAME,
-            null, null, null, null,
-            null, null, null)
-        val liczbaWierszy = cursorLiczbaWierszy.count
-        cursorLiczbaWierszy.close()
+        val cursor = db.query(TableInfo.TABLE_NAME,
+            null, null, null,
+            null, null,null)
+        val rowCount = cursor.count
+        cursor.close()
 
-        return liczbaWierszy
+        return rowCount
     }
 
     override fun onBindViewHolder(holder: CardAdapterViewHolder, position: Int) {
@@ -38,40 +42,53 @@ class CardViewAdapter(context: Context): RecyclerView.Adapter<CardAdapterViewHol
         val cardView = holder.view.note_cardView
         val title = holder.view.title_cardView
         val message = holder.view.message_cardView
-        //---------------------------------------------------
         val context = holder.view.context
 
-        //Ładowanie treści z bazy danych
+        val notes = ArrayList<Note>()
         val cursor = db.query(TableInfo.TABLE_NAME,
-            null, BaseColumns._ID + "=?", arrayOf(holder.adapterPosition.plus(1).toString()),
-            null, null, null)
+            null, null, null,
+            null, null,TableInfo.COLUMN_NAME_TITLE + " DESC")
 
-        if(cursor.moveToFirst())
-        if(!(cursor.getString(1).isNullOrEmpty() &&
-             cursor.getString(2).isNullOrEmpty())) {
-                    title.setText(cursor.getString(1))
-                    message.setText(cursor.getString(2))
+        if(cursor.count > 0){
+            cursor.moveToFirst()
+            while(!cursor.isAfterLast){
+                val note = Note()
+                note.id = cursor.getInt(0)
+                note.title = cursor.getString(1)
+                note.message = cursor.getString(2)
+                notes.add(note)
+                cursor.moveToNext()
             }
-           // else notifyItemRemoved(holder.adapterPosition)
-
-        var row_id = cursor.getString(0)
-
+        }
         cursor.close()
+
+        title.setText(notes[holder.adapterPosition].title)
+        message.setText(notes[holder.adapterPosition].message)
 
         //Edycja konkretnej notatki
         cardView.setOnClickListener{
-            val EDIT_CODE = "EDIT_CODE"
             val intent = Intent(context,DetailsActivity::class.java)
-            intent.putExtra("title", title.text.toString())
-            intent.putExtra("message", message.text.toString())
-            intent.putExtra("EDIT", EDIT_CODE)
-            intent.putExtra("ID", row_id)
+            intent.putExtra("title", notes[holder.adapterPosition].title)
+            intent.putExtra("message", notes[holder.adapterPosition].message)
+            intent.putExtra("ID", notes[holder.adapterPosition].id.toString())
             context.startActivity(intent)
         }
         //--------------------------------------------------------
 
+        cardView.setOnLongClickListener(object : View.OnLongClickListener{
+            override fun onLongClick(v: View?): Boolean {
 
+                db.delete(TableInfo.TABLE_NAME,
+                    BaseColumns._ID +"=?",
+                    arrayOf(notes[holder.adapterPosition].id.toString()))
+
+                notifyItemRemoved(holder.adapterPosition)
+                return true
+            }
+
+        })
 
     }
+
 }
 class CardAdapterViewHolder(val view: View): RecyclerView.ViewHolder(view)

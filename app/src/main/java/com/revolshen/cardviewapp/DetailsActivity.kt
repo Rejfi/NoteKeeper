@@ -18,27 +18,18 @@ class DetailsActivity : AppCompatActivity() {
 
         val dbHelper = SQLDataBaseHelper(applicationContext)
         val db = dbHelper.writableDatabase
-
         val info_save_message = Toast.makeText(
             applicationContext,
             "Wiadomość zapisana, możesz wyjść", Toast.LENGTH_SHORT
         )
 
-        //Edycja istniejacych treści
-        if (intent.hasExtra("EDIT")) {
-            if (intent.hasExtra("title")) {
-                title_details.setText(intent.getStringExtra("title"))
-            }
-            if (intent.hasExtra("message")) {
-                message_details.setText(intent.getStringExtra("message"))
-            }
-
-        }
+        if(intent.hasExtra("title")) title_details.setText(intent.getStringExtra("title"))
+        if(intent.hasExtra("message")) message_details.setText(intent.getStringExtra("message"))
 
 
         //Zapisanie treści z pól do bazy danych
         save_BT_details.setOnClickListener {
-            if (intent.hasExtra("EDIT")) {
+            if (intent.hasExtra("ID")) {
                 val title = title_details.text.toString()
                 val message = message_details.text.toString()
 
