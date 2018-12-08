@@ -12,7 +12,8 @@
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp" android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintBottom_toBottomOf="parent" app:cardElevation="10dp" app:cardCornerRadius="10dp"
+    >
         <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
@@ -21,25 +22,25 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
-                    android:textSize="22dp"
+                    android:textSize="22sp"
                     android:ems="10"
                     android:id="@+id/title_cardView"
-                    android:hint="Title"
+                    android:hint="@string/title"
                     android:ellipsize="end"
                     android:lines="1"
-            />
+                    android:padding="2dp"/>
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="10dp"
-                    android:hint="Text..."
+                    android:hint="@string/text"
                     android:textSize="18sp"
                     android:ems="10"
                     android:id="@+id/message_cardView"
                     android:ellipsize="end"
                     android:layout_marginBottom="5dp"
 
-                    android:textAlignment="viewStart" android:lines="2"/>
+                    android:textAlignment="viewStart" android:lines="2" android:padding="1dp"/>
 
         </LinearLayout>
     </android.support.v7.widget.CardView>

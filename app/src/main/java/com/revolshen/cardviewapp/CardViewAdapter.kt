@@ -81,9 +81,8 @@ class CardViewAdapter(context: Context): RecyclerView.Adapter<CardAdapterViewHol
                 db.delete(TableInfo.TABLE_NAME,
                     BaseColumns._ID +"=?",
                     arrayOf(notes[holder.adapterPosition].id.toString()))
-
                 notifyItemRemoved(holder.adapterPosition)
-                return true
+               return true
             }
 
         })
