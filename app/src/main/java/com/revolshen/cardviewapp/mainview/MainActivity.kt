@@ -51,27 +51,12 @@ class MainActivity : AppCompatActivity() {
 
         //Wyświetlanie elementów na ekranie głównym - Adapter oraz LayoutManager
         recyler_view.layoutManager = GridLayoutManager(applicationContext,2)
-        recyler_view.adapter = CardViewAdapter(applicationContext, notes)
+        recyler_view.adapter = CardViewAdapter(applicationContext, notes, db)
         //----------------------------------------------------------------------
-    }
-    /*
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_main,menu)
-        return super.onCreateOptionsMenu(menu)
+
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if(item?.itemId == R.id.mode){
-            val intent = Intent(applicationContext, ArchivesActivity::class.java)
-            startActivity(intent)
-        }
 
-
-        return super.onOptionsItemSelected(item)
-
-   }
-
-    */
 }
 
 
