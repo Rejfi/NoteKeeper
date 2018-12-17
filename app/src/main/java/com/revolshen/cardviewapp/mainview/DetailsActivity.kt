@@ -1,5 +1,6 @@
-package com.revolshen.cardviewapp
+package com.revolshen.cardviewapp.mainview
 
+import android.app.ActionBar
 import android.content.ContentValues
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -7,6 +8,10 @@ import android.provider.BaseColumns
 import kotlinx.android.synthetic.main.activity_details.*
 import android.view.Menu
 import android.view.MenuItem
+import com.revolshen.cardviewapp.R
+import java.text.DateFormat
+import java.text.Format
+import java.util.*
 
 class DetailsActivity : AppCompatActivity() {
 
@@ -32,12 +37,19 @@ class DetailsActivity : AppCompatActivity() {
             //-----------Zapisywanie treści---------------------------------
             val title = title_details.text.toString()
             val message = message_details.text.toString()
-            val values = ContentValues()
-            values.put("title", title)
-            values.put("message", message)
+            val dateFormat = DateFormat.getDateInstance()
+            val date = dateFormat.format(Date().time)
+
+            val values = ContentValues().apply {
+                put(TableInfo.COLUMN_NAME_TITLE, title)
+                put(TableInfo.COLUMN_NAME_MESSAGE, message)
+                put(TableInfo.COLUMN_NAME_DATE, date)
+            }
+
 
             if (intent.hasExtra("ID")) {
-                db.update(TableInfo.TABLE_NAME,values,
+                db.update(
+                    TableInfo.TABLE_NAME,values,
                     BaseColumns._ID + "=?", arrayOf(intent.getStringExtra("ID")))
 
             } else {
