@@ -32,7 +32,7 @@ object BasicComannd {
 }
 
 class SQLDataBaseHelper(context: Context): SQLiteOpenHelper(context,
-    TableInfo.TABLE_NAME, null, 1 ){
+    TableInfo.TABLE_NAME, null, 2 ){
 
     override fun onCreate(db: SQLiteDatabase?) {
         db?.execSQL(BasicComannd.SQL_CREATE_TABLE)

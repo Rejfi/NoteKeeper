@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">CardViewApp</string>
-    <string name="click_take_notes">Click here to take notes</string>
+    <string name="click_take_notes">Click here to take note</string>
+    <string name="swap_here">Swap your finger here</string>
     <string name="title">Title&#8230;</string>
     <string name="text">Text&#8230;</string>
     <string name="save">Save</string>

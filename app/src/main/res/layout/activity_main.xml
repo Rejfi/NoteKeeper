@@ -28,7 +28,7 @@
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
-            android:hint="@string/click_take_notes" android:layout_weight="8" android:textAlignment="center"
+            android:hint="@string/swap_here" android:layout_weight="8" android:textAlignment="center"
             android:textSize="18sp" android:layout_marginBottom="8dp"
     />
 </LinearLayout>
